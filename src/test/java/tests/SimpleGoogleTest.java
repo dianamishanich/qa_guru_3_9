@@ -36,8 +36,8 @@ public class SimpleGoogleTest {
     }
 
     @Test
-    @DisplayName("Тест поиска в Google")
-    void selenideSearchTest() {
+    @DisplayName("Успешный поисковый запрос в Google")
+    void successfulSelenideSearchTest() {
 
         String searchQuery = "Selenide";
         String searchResults = "selenide.org";
@@ -54,4 +54,25 @@ public class SimpleGoogleTest {
             $("html").shouldHave(text(searchResults));
         });
     }
+
+    @Test
+    @DisplayName("Тест с ошибкой")
+    void unsuccessfulSelenideSearchTest() {
+
+        String searchQuery = "Selenide";
+        String searchResults = "selenide.org";
+
+        step("Открываем google.com",() -> {
+            open("https://www.google.com");
+        });
+
+        step("Вводим в поисковую строку " + searchQuery,() -> {
+            $(byName("q")).setValue(searchQuery).pressEnter();
+        });
+
+        step("Результат поиска должен содержать " + searchResults,() -> {
+            $("html").shouldNotHave(text(searchResults));
+        });
+    }
+
 }
