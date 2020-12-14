@@ -20,7 +20,6 @@ import static io.qameta.allure.Allure.step;
 
 public class SimpleGoogleTest {
 
-
     @BeforeAll
     static void setup() {
         addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
@@ -29,9 +28,8 @@ public class SimpleGoogleTest {
         capabilities.setCapability("enableVideo", true);
 
         Configuration.browserCapabilities = capabilities;
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud:4444/wd/hub/";
+        Configuration.remote = "https://user1:1234@" + System.getProperty("remote.browser.url") + ":4444/wd/hub/";
         Configuration.startMaximized = true;
-
     }
 
     @AfterEach
